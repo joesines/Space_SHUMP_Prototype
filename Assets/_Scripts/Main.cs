@@ -37,6 +37,14 @@ public class Main : MonoBehaviour {
         go.transform.position = pos;
         //call SpawnEnemy() again in a coupld of seconds 
         Invoke("SpawnEnemy", enemySpawnRate);
+    }
+    public void DelayedRestart(float delay) {
+        //Invoke the restart ()method in delay seconds
+        Invoke("Restart", delay);
+    }
+    public void Restart() {
+        //reload_scene_0 to restart the game
+        Application.LoadLevel("__Scene_0");
 
     }
 	
