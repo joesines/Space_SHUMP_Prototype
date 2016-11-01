@@ -21,6 +21,7 @@ public enum WeaponType {
 //in the inspector pane.it doesn't work for everything, but it
 //will work for simple classes like this!
 
+[System.Serializable]
 public class WeaponDefinition {
     public WeaponType      type = WeaponType.none; 
     public string           letter;                 // The letter to show on the power-up
