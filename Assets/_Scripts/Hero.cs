@@ -19,6 +19,10 @@ public class Hero : MonoBehaviour
     private float _shieldLevel = 1;
     public bool _____________________;
     public Bounds bounds;
+    //declare a new delegate type weaponfire delegate
+    public delegate void WeaponFireDelegate();
+    //create a weaponfiredelegate field name fire delegate
+    public WeaponFireDelegate fireDelegate;
 
 
     // Use this for initialization
@@ -48,7 +52,15 @@ public class Hero : MonoBehaviour
         {
             pos -= off;
             transform.position = pos;
-            //Rotate the ship to make it feel more dybamic 
+            //Rotate the ship to make it feel more dynamic 
+
+            //use the fireDelegate to fire weapons 
+            //first, make sure the axis("jump") button is pressed 
+            //then ensure that fireDelegate isn't null to avoud an error
+            if (Input.GetAxis("jump") == 1 && fireDelegate != null) {
+                fireDelegate();
+            }
+
 
             transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
 

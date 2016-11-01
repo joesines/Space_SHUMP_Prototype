@@ -256,9 +256,17 @@ public class Utils : MonoBehaviour
     //This version of the function handles things if a transform is passes in 
     public static GameObject FindTaggedParent(Transform t) {
         return (FindTaggedParent(t.gameObject));
-
     }
+    //=====================================Materials Functions==================================
 
+    //Returns a list of all Materials in this GameObject or its Children 
+    static public Material[] GetAllMaterials( GameObject go) {
+        List<Material> mats = new List<Material>();
+        if (go.GetComponent<Renderer>() != null) {
+            mats.AddRange(GetAllMaterials( t.gameObject) );
+        }
+        return(mats.ToArrary());
+    }
     }
 
 
