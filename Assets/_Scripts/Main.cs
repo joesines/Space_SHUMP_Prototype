@@ -6,19 +6,19 @@ public class Main : MonoBehaviour {
     static public Main S;
     static public Dictionary<WeaponType, WeaponDefinition> W_DEFS;
 
-    public GameObject[]  prefabEnemies;
-    public float         enemySpawnPerSecond = 0.5f;
-    public float         enemySpawnPadding = 1.5f;
-    public WeaponDefinition[]  weaponDefinitions;
+    public GameObject[] prefabEnemies;
+    public float enemySpawnPerSecond = 0.5f;
+    public float enemySpawnPadding = 1.5f;
+    public WeaponDefinition[] weaponDefinitions;
 
-    public bool          ______________________________;
-    public WeaponType[]  activeWeaponTypes;
+    public bool ______________________________;
+    public WeaponType[] activeWeaponTypes;
 
-    public float        enemySpawnRate; //Delay between enemu spawns 
+    public float enemySpawnRate; //Delay between enemu spawns 
 
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake() {
         S = this;
         //set Utils.camBounds
         Utils.SetCameraBounds(this.GetComponent<Camera>());
@@ -31,8 +31,8 @@ public class Main : MonoBehaviour {
         foreach (WeaponDefinition def in weaponDefinitions) {
             W_DEFS[def.type] = def;
         }
-        }
-    static public WeaponDefinition GetWeaponDefinition (WeaponType wt) {
+    }
+    static public WeaponDefinition GetWeaponDefinition(WeaponType wt) {
         //check to make sure that the key exists in the dictionary 
         //attempting to retrieve a key that didn't exist, would throw an error,
         //so the folloing if statement is important 
@@ -44,9 +44,7 @@ public class Main : MonoBehaviour {
         return (new WeaponDefinition());
 
     }
-
-	
-	}
+}
 
     void Start() {
         activeWeaponTypes = new WeaponType[weaponDefinitions.Length];
