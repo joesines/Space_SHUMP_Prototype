@@ -98,13 +98,13 @@ public class Hero : MonoBehaviour
                 shieldLevel--;
                 //Destroy the enemy 
                 Destroy(go);
-            }else if (go.tag == "PowerUP"{
+            } else if (go.tag == "PowerUP") {
                 //If the shield was triggered by a PowerUp
-               AbsorbPowerUp(go);
-            } else {
+                AbsorbPowerUp(go);
+            }else{
                 print("Triggered: " + go.name);
+
             }
-            //Announce it    
         } else {
             print("Triggered: " + other.gameObject.name);
         }

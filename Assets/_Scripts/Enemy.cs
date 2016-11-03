@@ -46,16 +46,14 @@ public class Enemy : MonoBehaviour {
     //This is a property : A method that acts like a field 
     public Vector3 pos
     {
-        get
-        {
+        get{
             return (this.transform.position);
         }
-        set
-        {
+        set {
             this.transform.position = value;
         }
     }
-     void CheckOffScreen () {
+    void CheckOffScreen() {
         // If bounds are still their default value 
         if (bounds.size == Vector3.zero) {
             //then set them 
@@ -63,31 +61,36 @@ public class Enemy : MonoBehaviour {
             //Also find the diff between bounds.center & transform.position
             boundsCenterOffset = bounds.center - transform.position;
         }
-
-        void OnCollisionEnter(Collision coll) {
-            GameObject other = coll.gameObject;
-            switch (other.tag) {
-                case "ProjectileHero":
-                    Projectile p = other.GetComponent<Projectile>();
-                    //Enemies don't take damnage unless they're on screen 
-                    //this stops the player from shooting them before they are visable
-                    bounds.center = transform.position + boundsCenterOffset;
-                    if (bounds.extents == Vector3.zero ||
-                   Utils.ScreenBoundsCheck(bounds, BoundsTest.offScreen) !=Vector3.zero) {
-                        Destroy(other);
-                         break; 
-                     }
-                    //Hurt this enemy 
-                    ShowDamage();
-                    //get the damnage amount from the projectile.type & Main.W_DEFS
-                    health-= Main.W_DEFS[p.type].damageOnHit;
-                    if (health<= 0) {
-                        //Destroy this Enemy
-                        Destroy(this.gameObject);
-                    }
+    }
+    void OnCollisionEnter(Collision coll)
+    {
+        GameObject other = coll.gameObject;
+        switch (other.tag)
+        {
+            case "ProjectileHero":
+                Projectile p = other.GetComponent<Projectile>();
+                //Enemies don't take damnage unless they're on screen 
+                //this stops the player from shooting them before they are visable
+                bounds.center = transform.position + boundsCenterOffset;
+                if (bounds.extents == Vector3.zero ||
+               Utils.ScreenBoundsCheck(bounds, BoundsTest.offScreen) != Vector3.zero)
+                {
                     Destroy(other);
                     break;
-            }
+                }
+                //Hurt this enemy 
+                ShowDamage();
+                //get the damnage amount from the projectile.type & Main.W_DEFS
+                health -= Main.W_DEFS[p.type].damageOnHit;
+                if (health <= 0)
+                {
+                    //Destroy this Enemy
+                    Destroy(this.gameObject);
+                }
+                Destroy(other);
+                break;
+        }
+    }
             void ShowDamage() {
                 foreach (Material m in materials) {
                     m.color = Color.red;
@@ -111,13 +114,10 @@ public class Enemy : MonoBehaviour {
                 // then destroy it
                 Destroy(this.gameObject);
 
-            }
-
-        }
-    }
+      
         
 
-            }
+            
 
      
 
