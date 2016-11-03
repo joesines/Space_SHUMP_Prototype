@@ -237,9 +237,11 @@ public class Utils : MonoBehaviour
 
     //=====================================================Transform Functions=================================================\\
     //util it either finds a parent with a tag != "untagged" or no parent 
-    public static GameObject FindTaggedParent(GameObject go) {
+    public static GameObject FindTaggedParent(GameObject go)
+    {
         // if this gameObject has a tag
-        if (go.tag != "Untagged") {
+        if (go.tag != "Untagged")
+        {
             //then return this gameObject
             return (go);
         }
@@ -251,25 +253,30 @@ public class Utils : MonoBehaviour
             return (null);
         }
         //Otherwise, recursively climb up the tree
-        return (FindTaggedParent(go.transform.parent.gameObject) );
-        }
+        return (FindTaggedParent(go.transform.parent.gameObject));
+    }
     //This version of the function handles things if a transform is passes in 
-    public static GameObject FindTaggedParent(Transform t) {
+    public static GameObject FindTaggedParent(Transform t)
+    {
         return (FindTaggedParent(t.gameObject));
     }
     //=====================================Materials Functions==================================
 
     //Returns a list of all Materials in this GameObject or its Children 
-    static public Material[] GetAllMaterials( GameObject go) {
+    static public Material[] GetAllMaterials(GameObject go)
+    {
         List<Material> mats = new List<Material>();
-        if (go.GetComponent<Renderer>() != null) {
-            mats.AddRange(GetAllMaterials( t.gameObject) );
+        if (go.GetComponent<Renderer>() != null)
+        {
+            mats.Add(go.GetComponent<Renderer>().material);
         }
-        foreach (Transform t in go.transform){
+        foreach (Transform t in go.transform)
+        {
+            mats.AddRange(GetAllMaterials(t.gameObject));
         }
-        return (mats.ToArrary() );
-     }
+        return (mats.ToArrary());
     }
+}
 
 
                 

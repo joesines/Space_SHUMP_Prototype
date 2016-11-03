@@ -32,7 +32,9 @@ public class Hero : MonoBehaviour
     {
         S = this;   // Set this singleton 
         bounds = Utils.CombineBoundsofChildren(this.gameObject);
+    }
 
+    void Start() { 
         //reset the weapons to start _hero with 1 blaster 
         ClearWeapons();
         weapons[0].SetType(WeaponType.blaster);
