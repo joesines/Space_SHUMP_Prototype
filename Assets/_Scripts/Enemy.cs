@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour {
         if (remainingDamageFrames > 0) {
             remainingDamageFrames--;
             if (remainingDamageFrames == 0) {
-                UnShowDamage();
+               UnShowDamage();
             }
         }
 	}
@@ -71,9 +71,9 @@ public class Enemy : MonoBehaviour {
                     Projectile p = other.GetComponent<Projectile>();
                     //Enemies don't take damnage unless they're on screen 
                     //this stops the player from shooting them before they are visable
-                    bounds.center = transfrom.position + boundsCenterOffset;
-                    if (bounds.extents == Vector3.zero)||
-                   Utils.ScreenBoundsCheck(bounds, BoundsTest.OffScreen) !=Vector3.zero {
+                    bounds.center = transform.position + boundsCenterOffset;
+                    if (bounds.extents == Vector3.zero ||
+                   Utils.ScreenBoundsCheck(bounds, BoundsTest.offScreen) !=Vector3.zero) {
                         Destroy(other);
                          break; 
                      }
@@ -88,15 +88,15 @@ public class Enemy : MonoBehaviour {
                     Destroy(other);
                     break;
             }
-            void ShowDamage(){
+            void ShowDamage() {
                 foreach (Material m in materials) {
                     m.color = Color.red;
                 }
                 remainingDamageFrames = showDamageForFrames;
             }
-            void UnShowDamage(){
+            void UnShowDamage() {
                 for(int i=0; i<materials.Length; i++) {
-                    materials[i].color = orginalColors[i];
+                    materials[i].color = originalColors[i];
                 }
             }
         }

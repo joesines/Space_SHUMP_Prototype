@@ -265,8 +265,10 @@ public class Utils : MonoBehaviour
         if (go.GetComponent<Renderer>() != null) {
             mats.AddRange(GetAllMaterials( t.gameObject) );
         }
-        return(mats.ToArrary());
-    }
+        foreach (Transform t in go.transform){
+        }
+        return (mats.ToArrary() );
+     }
     }
 
 

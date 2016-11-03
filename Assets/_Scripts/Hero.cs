@@ -7,7 +7,7 @@ public class Hero : MonoBehaviour
 {
 
     static public Hero S;//Singleton 
-    public float  gameRestartDelay = 2f;
+    public float gameRestartDelay = 2f;
 
     //These fields control the movement of the ship 
     public float speed = 30;
@@ -16,7 +16,9 @@ public class Hero : MonoBehaviour
 
     //Ship status information 
     [SerializeField]
-    private float _shieldLevel = 1;
+    private float _shieldLevel = 1; //Add the underscore!
+    //Weapon fields
+    public Weapon[] weapons;
     public bool _____________________;
     public Bounds bounds;
     //declare a new delegate type weaponfire delegate
@@ -31,6 +33,9 @@ public class Hero : MonoBehaviour
         S = this;   // Set this singleton 
         bounds = Utils.CombineBoundsofChildren(this.gameObject);
 
+        //reset the weapons to start _hero with 1 blaster 
+        ClearWeapons();
+        weapons[0].SetType(WeaponType.blaster);
     }
 
     // Update is called once per frame
@@ -74,38 +79,87 @@ public class Hero : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //find the tag of other.gameobject ot its parent game objects
+        //find the tag of other.gameObjct or its parent GameObjects
         GameObject go = Utils.FindTaggedParent(other.gameObject);
         //if there is a parent with a tag
         if (go != null)
-            //Make sure it's not the same triggering go as last time 
+        {
+            //make sure its not the same triggering go as last time 
             if (go == lastTriggerGo)
             {
                 return;
             }
-        lastTriggerGo = go;
 
-        if (go.tag == "Enemy")
-        {
-            //if the shield was triggered by an enemy 
-            //Decreases the level of the shild by 1 
-            shieldLevel--;
-            //destroy the enemy 
-            Destroy(go);
-        }
-        else
-        {
-            //Annouce it 
-            print("Triggered:" + go.name);
-            //Otherwise announce the original other.gameOject
-            print("Triggered:" + other.gameObject.name);
+            lastTriggerGo = go;
+            if (go.tag == "Enemy")
+            {
+                //if the shueld was triggered by an enemy 
+                //decrease the level of the shield by 1 
+                shieldLevel--;
+                //Destroy the enemy 
+                Destroy(go);
+            }else if (go.tag == "PowerUP"{
+                //If the shield was triggered by a PowerUp
+               AbsorbPowerUp(go);
+            } else {
+                print("Triggered: " + go.name);
+            }
+            //Announce it    
+        } else {
+            print("Triggered: " + other.gameObject.name);
         }
     }
+
+    public void AbsorbPowerUp(GameObject go) {
+        PowerUp pu = go.GetComponent<PowerUp>();
+        switch (pu.type) {
+            case WeaponType.shield: // if its the shield
+                shieldLevel++;
+                break;
+
+            default: // if its any weapon PowerUp
+                //check the current weapon type 
+                if (pu.type == weapons[0].type)
+                {
+                    //then increase the number of weapons of this type
+                    Weapon w = GetEmptyWeaponSlot(); //find an available weapon
+                    if (w != null)
+                    {
+                        //set it to pu.type
+                        w.SetType(pu.type);
+                    }
+                }
+                else
+                {
+                    //if this is a different weapon
+                    ClearWeapons();
+                    weapons[0].SetType(pu.type);
+                }
+                break;
+        }
+        pu.AbsorbedBy(this.gameObject);
+    }
+    Weapon GetEmptyWeaponSlot() {
+        for (int i = 0; i<weapons.Length; i++) {
+            if( weapons[i].type == WeaponType.none) {
+                return (weapons[i]);
+            }
+        }
+        return(null);
+    }
+    void ClearWeapons() {
+        foreach (Weapon w in weapons) {
+            w.SetType(WeaponType.none);
+        }
+
+    }
+
 
         public float shieldLevel {
         get {
             return (_shieldLevel); 
            }
+
         set {
             _shieldLevel = Mathf.Min(value, 4);
             //if the shiled is going to be set to less than zero 

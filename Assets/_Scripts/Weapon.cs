@@ -38,12 +38,12 @@ public class Weapon : MonoBehaviour {
     static public Transform PROJECTILE_ANCHOR;
 
 
-    public bool ________________;
+    public bool                ________________;
     [SerializeField]
-    private WeaponType _type = WeaponType.blaster;
-    public WeaponDefinition def;
-    public GameObject collar;
-    public float lastshot; //Time last shot was fired 
+    private WeaponType       _type = WeaponType.blaster;
+    public WeaponDefinition     def;
+    public GameObject        collar;
+    public float             lastShot; //Time last shot was fired 
 
     void start() {
         collar = transform.Find("Collar").gameObject;
@@ -103,7 +103,7 @@ public class Weapon : MonoBehaviour {
         }
     }
     public Projectile MakeProjectile() {
-        GameObject go = Instantiate(def.projectilePrefab) as GameObject;
+        GameObject go = Instantiate(def.ProjectilePrefab) as GameObject;
         if (transform.parent.gameObject.tag == "Hero")
         {
             go.tag = "ProjectileHero";
