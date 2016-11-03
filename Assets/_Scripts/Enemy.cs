@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour {
     public float     fireRate = 0.3f; // seconds/shot (unused) 
     public float     health = 10;
     public int       score = 100; // points earned for destroying this 
+
     public int       showDamageForFrames = 2; //#frames to show damage
 
     public bool __________________________;
@@ -20,7 +21,8 @@ public class Enemy : MonoBehaviour {
     void Awake()  {
         materials = Utils.GetAllMaterials(gameObject);
        originalColors = new Color[materials.Length];
-        for(int i=0; i<materials.Length; i++) {
+        for(int i=0; i<materials.Length; i++)
+        {
             originalColors[i] = materials[i].color;
 
         }
@@ -53,15 +55,31 @@ public class Enemy : MonoBehaviour {
             this.transform.position = value;
         }
     }
-    void CheckOffScreen() {
+    void CheckOffScreen()
+    {
         // If bounds are still their default value 
-        if (bounds.size == Vector3.zero) {
+        if (bounds.size == Vector3.zero)
+        {
             //then set them 
             bounds = Utils.CombineBoundsofChildren(this.gameObject);
             //Also find the diff between bounds.center & transform.position
             boundsCenterOffset = bounds.center - transform.position;
         }
+        //Every time, Update the bounds to the current position
+        bounds.center = transform.position + boundsCenterOffset;
+        //check to see whether the bounds are completely off screen 
+        Vector3 off = Utils.ScreenBoundsCheck(bounds, BoundsTest.offScreen);
+        if (off != Vector3.zero)
+        {
+            // if this enemy has gone off the bottom edge of the screen 
+            if (off.y < 0)
+            {
+                // then destroy it
+                Destroy(this.gameObject);
+            }
+        }
     }
+
     void OnCollisionEnter(Collision coll)
     {
         GameObject other = coll.gameObject;
@@ -104,15 +122,7 @@ public class Enemy : MonoBehaviour {
             }
         }
 
-        //Every time, Update the bounds to the current position
-        bounds.center = transform.position + boundsCenterOffset;
-        //check to see whether the bounds are completely off screen 
-        Vector3 off = Utils.ScreenBoundsCheck(bounds, BoundsTest.offScreen);
-        if (off != Vector3.zero) {
-            // if this enemy has gone off the bottom edge of the screen 
-            if (off.y < 0) {
-                // then destroy it
-                Destroy(this.gameObject);
+       
 
       
         
