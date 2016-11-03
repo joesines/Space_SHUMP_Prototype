@@ -274,7 +274,7 @@ public class Utils : MonoBehaviour
         {
             mats.AddRange(GetAllMaterials(t.gameObject));
         }
-        return (mats.ToArrary());
+        return (mats.ToArray());
     }
 }
 

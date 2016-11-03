@@ -141,7 +141,7 @@ public class Enemy_4 : Enemy {
                     //tell the main singleton that this ship has been destoyed 
                     Main.S.ShipDestroyed(this);
                     //Destoy this Enemy
-                    Destoy(this.gameObject);
+                    Destroy(this.gameObject);
                 }
                 Destroy(other); // Destory the ProjectileHero
                 break;

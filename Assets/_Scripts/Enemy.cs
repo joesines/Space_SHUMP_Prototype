@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour {
                 //Hurt this enemy 
                 ShowDamage();
                 //get the damnage amount from the projectile.type & Main.W_DEFS
-                health -= Main.W_DEFS[p.type].damageOnHit;
+                health -= Main.W_DEFS[p.type].damnageOnHit;
                 if (health <= 0)
                 {
                     //tell the main singleton that this ship has been destroyed 
