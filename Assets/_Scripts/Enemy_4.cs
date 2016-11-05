@@ -18,7 +18,7 @@ public class Part{
 
 public class Enemy_4 : Enemy {
     //Enemy_4 will start Offscreeen and then pick a random point on screen to 
-    //movee to. Once it has arrived, it will pick another random point and
+    //movee to Once it has arrived, it will pick another random point and
     //continute until the player has shot it down
 
     public Vector3[] points; // stores p0 & p1 for interpoilation 
@@ -122,7 +122,7 @@ public class Enemy_4 : Enemy {
                 }
                 //it's not protected, so make it take damage
                 //get the damage amount from the Projectile.type & Main.W_DEFS
-                prtHit.health -= Main.W_DEFS[p.type].damnageOnHit;
+                prtHit.health -= Main.W_DEFS[p.type].damageOnHit;
                 //Show damage on the part 
                 ShowLocalizedDamage(prtHit.mat);
                 if (prtHit.health <= 0) {

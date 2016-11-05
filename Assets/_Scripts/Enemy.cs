@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour {
         if (bounds.size == Vector3.zero)
         {
             //then set them 
-            bounds = Utils.CombineBoundsofChildren(this.gameObject);
+            bounds = Utils.CombineBoundsOfChildren(this.gameObject);
             //Also find the diff between bounds.center & transform.position
             boundsCenterOffset = bounds.center - transform.position;
         }
@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour {
                 //Hurt this enemy 
                 ShowDamage();
                 //get the damnage amount from the projectile.type & Main.W_DEFS
-                health -= Main.W_DEFS[p.type].damnageOnHit;
+                health -= Main.W_DEFS[p.type].damageOnHit;
                 if (health <= 0)
                 {
                     //tell the main singleton that this ship has been destroyed 

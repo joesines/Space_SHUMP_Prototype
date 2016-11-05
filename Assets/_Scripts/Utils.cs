@@ -38,7 +38,7 @@ public class Utils : MonoBehaviour
         return (b0);
     }
 
-    public static Bounds CombineBoundsofChildren(GameObject go)
+    public static Bounds CombineBoundsOfChildren(GameObject go)
     {
         //Create an empty bounds b 
         Bounds b = new Bounds(Vector3.zero, Vector3.zero);
@@ -58,7 +58,7 @@ public class Utils : MonoBehaviour
         foreach (Transform t in go.transform)
         {
             //Expand b to contain their bounds as well 
-            b = BoundsUnion(b, CombineBoundsofChildren(t.gameObject));
+            b = BoundsUnion(b, CombineBoundsOfChildren(t.gameObject));
         }
         return (b);
     }
